@@ -25,16 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private TabLayout tabLayout;
-    private Handler mHandler;
-    private TextView timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initialize();
-        /*this.mHandler = new Handler();
-
-        this.mHandler.postDelayed(m_Runnable,5000);*/
     }
 
     void initialize() {
@@ -44,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         configureViewPager();
     }
 
-    void configureTabLayout(){
+    void configureTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(SUN));
         tabLayout.addTab(tabLayout.newTab().setText(MOON));
@@ -67,15 +62,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    void configureToolbar(){
+    void configureToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         setSupportActionBar(toolbar);
     }
 
-    void configureViewPager(){
+    void configureViewPager() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
@@ -100,15 +95,4 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
-    private final Runnable m_Runnable = new Runnable()
-    {
-        public void run()
-
-        {
-            timer.setText(Calendar.getInstance().getTime().toString());
-            MainActivity.this.mHandler.postDelayed(m_Runnable, 1000);
-        }
-
-    };//runnable
 }

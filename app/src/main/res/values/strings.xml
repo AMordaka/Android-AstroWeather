@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AstroWeather</string>
+
+    <string name="SUN">Slonce</string>
+    <string name="MOON">Ksiezyc</string>
+    <string name="SETTINGS">Ustawienia</string>
+</resources>

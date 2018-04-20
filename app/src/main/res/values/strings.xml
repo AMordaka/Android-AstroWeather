@@ -1,7 +1,21 @@
 <resources>
     <string name="app_name">AstroWeather</string>
 
-    <string name="SUN">Slonce</string>
-    <string name="MOON">Ksiezyc</string>
-    <string name="SETTINGS">Ustawienia</string>
+    <string name="SUN">Sun</string>
+    <string name="MOON">Moon</string>
+    <string name="SETTINGS">Setting</string>
+    <string name="LATITUDE">Latitude: </string>
+    <string name="LONGITUDE">Longitude: </string>
+    <string name="SUNRISE">Sunrise: </string>
+    <string name="AZIMUTH_RISE">Azimuth Rise: </string>
+    <string name="SUNSET">Sunset: </string>
+    <string name="AZIMUTH_SET">Azimuth Set: </string>
+    <string name="TWILIGHT_EVENING">Twilight Evening: </string>
+    <string name="TWILIGHT_MORNING">Twilight Morning: </string>
+    <string name="NEW_MOON">New Moon: </string>
+    <string name="FULL_MOON">Full Moon: </string>
+    <string name="LUNAR_PHASE">Lunar Phase: </string>
+    <string name="DAY_MONTH_LUNAR">Day Month Lunar: </string>
+    <string name="MOONRISE">Moonrise: </string>
+    <string name="MOONSET">Moonset: </string>
 </resources>

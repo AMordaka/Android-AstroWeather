@@ -29,27 +29,14 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText longitude;
     private EditText latitude;
     private Button buttonSave;
-    private double mlatitude;
-    private double mlongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        if (savedInstanceState != null) {
-            mlatitude = savedInstanceState.getDouble(LATITUDE);
-            mlongitude = savedInstanceState.getDouble(LONGITUDE);
-        }
+        astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         initSpinner();
         initOthers();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putDouble(LATITUDE, mlatitude);
-        outState.putDouble(LONGITUDE, mlongitude);
-
-        super.onSaveInstanceState(outState);
     }
 
     List<String> getIntervalNames() {
@@ -76,23 +63,23 @@ public class SettingsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int id, long position) {
 
-                Toast.makeText(SettingsActivity.this, "Wybrano opcję" + (id + 1), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
 
                 switch ((int) position) {
                     case 0:
-                        //wybrano pierwszy element
+                        astroWeatherConfig.setTimeInterval(1000);
                         break;
                     case 1:
-                        //wybrano drugi element
+                        astroWeatherConfig.setTimeInterval(5000);
                         break;
                     case 2:
-                        //wybrano trzeci element
+                        astroWeatherConfig.setTimeInterval(30000);
                         break;
                     case 3:
-                        //wybrano czwarty element
+                        astroWeatherConfig.setTimeInterval(10 * 60);
                         break;
                     case 4:
-                        //wybrano piąty element
+                        astroWeatherConfig.setTimeInterval(15 * 1000 * 60);
                         break;
                 }
             }
@@ -106,12 +93,11 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void saveHandler(View view) {
         try {
-            mlatitude = Double.parseDouble(latitude.getText().toString());
-            mlongitude = Double.parseDouble(longitude.getText().toString());
+            double mlatitude = Double.parseDouble(latitude.getText().toString());
+            double mlongitude = Double.parseDouble(longitude.getText().toString());
             if ((mlatitude > 90 || mlatitude < -90) || (mlongitude < 0 || mlongitude > 180)) {
                 throw new Exception();
             }
-            astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
             astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
             Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
         } catch (Exception ParseException) {

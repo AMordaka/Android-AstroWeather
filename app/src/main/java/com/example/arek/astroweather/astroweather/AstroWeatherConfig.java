@@ -18,7 +18,9 @@ public class AstroWeatherConfig {
     private static final AstroWeatherConfig astroWeatherInstance = new AstroWeatherConfig();
     private Runnable updateAstro;
     private Set<AstroCallback> subscribers = new HashSet<>();
+    private long timeInterval = 5000;
     final Handler handler = new Handler();
+
 
     public AstroWeatherConfig() {
         this.location = new AstroCalculator.Location(51.45, 19.28);
@@ -28,7 +30,7 @@ public class AstroWeatherConfig {
             public void run() {
                 update();
                 notifySubscribers();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, timeInterval);
             }
         };
         handler.post(updateAstro);
@@ -72,9 +74,13 @@ public class AstroWeatherConfig {
         subscribers.remove(subscriber);
     }
 
-    void notifySubscribers(){
+    void notifySubscribers() {
         for (AstroCallback subscriber : subscribers) {
             subscriber.onSettingsUpdate();
         }
+    }
+
+    public void setTimeInterval(long timeInterval) {
+        this.timeInterval = timeInterval;
     }
 }

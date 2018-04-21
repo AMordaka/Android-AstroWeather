@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MoonFragment">
 
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -14,136 +15,149 @@
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/LATITUDE" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/latitude"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/LATITUDE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/latitude"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/LONGITUDE" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/longitude"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/LONGITUDE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/longitude"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/MOONRISE" />
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-            <TextView
-                android:id="@+id/moonrise"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/MOONRISE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/moonrise"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/MOONSET"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/moonset"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </TableRow>
+
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/NEW_MOON"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/newmoon"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/MOONSET" />
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/FULL_MOON"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/moonset"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/fullmoon"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/NEW_MOON" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/newmoon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/LUNAR_PHASE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/lunarphase"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/FULL_MOON" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/fullmoon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/DAY_MONTH_LUNAR"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/LUNAR_PHASE" />
-
-            <TextView
-                android:id="@+id/lunarphase"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/DAY_MONTH_LUNAR" />
-
-            <TextView
-                android:id="@+id/daylunar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/daylunar"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 
 

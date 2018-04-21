@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".fragments.SunFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -15,136 +15,149 @@
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/LATITUDE" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/latitude"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/LATITUDE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/latitude"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/LONGITUDE" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/longitude"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/LONGITUDE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/longitude"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/SUNRISE" />
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-            <TextView
-                android:id="@+id/sunrise"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            <TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/SUNRISE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/AZIMUTH_RISE" />
+                <TextView
+                    android:id="@+id/sunrise"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/azimuthrise"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            <TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/SUNSET"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/SUNSET" />
+                <TextView
+                    android:id="@+id/sunset"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/sunset"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            </TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/AZIMUTH_SET" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/azimuthset"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/AZIMUTH_RISE"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/azimuthrise"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/TWILIGHT_EVENING" />
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/AZIMUTH_SET"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:id="@+id/twilightevening"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/azimuthset"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <View
+                android:layout_height="2dip"
+                android:background="#FF909090" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/TWILIGHT_MORNING" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/twilightmorning"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/TWILIGHT_EVENING"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/twilightevening"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="3dip"
+                    android:text="@string/TWILIGHT_MORNING"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/twilightmorning"
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 
 </FrameLayout>

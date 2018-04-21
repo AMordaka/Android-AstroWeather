@@ -62,15 +62,15 @@ public class SunFragment extends Fragment {
         String temp = null;
         this.latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         this.longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunrise().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunrise().getMinute() + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunrise().getSecond()));
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunrise().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunrise().getMinute());
         this.sunrise.setText(temp);
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunset().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunset().getMinute() + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunset().getSecond()));
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunset().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getSunset().getMinute());
         this.sunset.setText(temp);
         this.azimuthSet.setText(String.valueOf(round(astroWeatherConfig.getAstroCalculator().getSunInfo().getAzimuthSet(), 2)));
         this.azimuthRise.setText(String.valueOf(round(astroWeatherConfig.getAstroCalculator().getSunInfo().getAzimuthRise(), 2)));
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightEvening().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightEvening().getMinute() + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightEvening().getSecond()));
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightEvening().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightEvening().getMinute());
         this.twilightEvening.setText(temp);
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getMinute() + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getSecond()));
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getMinute());
         this.twilightMorning.setText(temp);
     }
 

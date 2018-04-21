@@ -60,13 +60,13 @@ public class MoonFragment extends Fragment {
         String temp = null;
         this.latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         this.longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonrise().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonrise().getMinute()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonrise().getSecond());
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonrise().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonrise().getMinute());
         this.moonrise.setText(temp);
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonset().getHour()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonset().getMinute()) + " " + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonset().getSecond());
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonset().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getMoonset().getMinute());
         this.moonset.setText(temp);
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getDay() + " " + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getMonth() + " " + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getYear());
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getDay() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getMonth() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextNewMoon().getYear());
         this.newMoon.setText(temp);
-        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getDay() + " " + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getMonth() + " " + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getYear());
+        temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getDay() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getMonth() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getYear());
         this.fullMoon.setText(temp);
         this.lunarPhase.setText(String.valueOf(round(astroWeatherConfig.getAstroCalculator().getMoonInfo().getIllumination(), 2)));
         this.dayMonthLuar.setText(String.valueOf((int) astroWeatherConfig.getAstroCalculator().getMoonInfo().getAge()));

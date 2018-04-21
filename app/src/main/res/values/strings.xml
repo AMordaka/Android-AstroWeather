@@ -3,7 +3,7 @@
 
     <string name="SUN">Sun</string>
     <string name="MOON">Moon</string>
-    <string name="SETTINGS">Setting</string>
+    <string name="SETTINGS">Settings</string>
     <string name="LATITUDE">Latitude: </string>
     <string name="LONGITUDE">Longitude: </string>
     <string name="SUNRISE">Sunrise: </string>

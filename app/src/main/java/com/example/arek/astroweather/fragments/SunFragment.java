@@ -10,13 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.arek.astroweather.R;
+import com.example.arek.astroweather.astroweather.AstroCallback;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class SunFragment extends Fragment {
+public class SunFragment extends Fragment implements AstroCallback {
+
+    private static final String LATITUDE = "Latitude";
+    private static final String LONGITUDE = "Longitude";
 
     private AstroWeatherConfig astroWeatherConfig;
     private TextView timer;
@@ -34,6 +38,8 @@ public class SunFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sun, container, false);
+        astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
+        astroWeatherConfig.registerForUpdates(this);
         initTime(view);
         initTextViews(view);
         contentView();
@@ -58,7 +64,7 @@ public class SunFragment extends Fragment {
     }
 
     void contentView() {
-        this.astroWeatherConfig = new AstroWeatherConfig();
+
         String temp = null;
         this.latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         this.longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
@@ -91,5 +97,14 @@ public class SunFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onSettingsUpdate() {
+        contentView();
+    }
+
+    public void onDestroy() {
+        astroWeatherConfig.unregisterForUpdates(this);
+        super.onDestroy();
+    }
 
 }

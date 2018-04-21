@@ -18,4 +18,6 @@
     <string name="DAY_MONTH_LUNAR">Day Month Lunar: </string>
     <string name="MOONRISE">Moonrise: </string>
     <string name="MOONSET">Moonset: </string>
+    <string name="REFRESH_ASTRO">Refresh Astro</string>
+    <string name="SAVE">Save</string>
 </resources>

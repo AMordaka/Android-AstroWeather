@@ -12,13 +12,6 @@
         android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,6 +20,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/LATITUDE"
@@ -34,6 +28,7 @@
 
                 <TextView
                     android:id="@+id/latitude"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -42,6 +37,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/LONGITUDE"
@@ -49,6 +45,7 @@
 
                 <TextView
                     android:id="@+id/longitude"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -61,6 +58,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/SUNRISE"
@@ -68,6 +66,7 @@
 
                 <TextView
                     android:id="@+id/sunrise"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -76,6 +75,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/SUNSET"
@@ -83,6 +83,7 @@
 
                 <TextView
                     android:id="@+id/sunset"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -96,6 +97,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/AZIMUTH_RISE"
@@ -103,6 +105,7 @@
 
                 <TextView
                     android:id="@+id/azimuthrise"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -112,6 +115,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/AZIMUTH_SET"
@@ -119,6 +123,7 @@
 
                 <TextView
                     android:id="@+id/azimuthset"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -131,6 +136,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/TWILIGHT_EVENING"
@@ -138,6 +144,7 @@
 
                 <TextView
                     android:id="@+id/twilightevening"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -146,6 +153,7 @@
             <TableRow>
 
                 <TextView
+                    style="@style/TextColor"
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/TWILIGHT_MORNING"
@@ -153,6 +161,7 @@
 
                 <TextView
                     android:id="@+id/twilightmorning"
+                    style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium" />

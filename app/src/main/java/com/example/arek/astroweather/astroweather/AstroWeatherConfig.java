@@ -16,9 +16,10 @@ import java.util.TimeZone;
 
 public class AstroWeatherConfig {
 
+    private static final AstroWeatherConfig astroWeatherInstance = new AstroWeatherConfig();
+
     private AstroCalculator.Location location;
     private AstroCalculator astroCalculator;
-    private static final AstroWeatherConfig astroWeatherInstance = new AstroWeatherConfig();
     private Runnable updateAstro;
     private Set<AstroCallback> subscribers = new HashSet<>();
     private long timeInterval = 10000;

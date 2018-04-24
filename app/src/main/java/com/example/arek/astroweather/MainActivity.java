@@ -25,16 +25,15 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         super.onCreate(savedInstanceState);
-        if(metrics.heightPixels == 1920 && metrics.widthPixels == 1080){
+        if (metrics.heightPixels == 1920 && metrics.widthPixels == 1080) {
             initializeHd();
-        }else{
+        } else {
             initializeQhd();
         }
 
-
     }
 
-    void initializeQhd(){
+    void initializeQhd() {
         setContentView(R.layout.activity_main_qhd);
         configureToolbar();
     }
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     void configureViewPager() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        if(viewPager != null) {
+        if (viewPager != null) {
             viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
             tabLayout.setupWithViewPager(viewPager);
         }

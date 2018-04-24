@@ -45,13 +45,4 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 2;
     }
-
-    @Override
-    public void finishUpdate(ViewGroup container) {
-        try{
-            super.finishUpdate(container);
-        } catch (NullPointerException nullPointerException){
-            System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
-        }
-    }
 }

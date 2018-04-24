@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arek.astroweather.R;
+import com.example.arek.astroweather.SettingsActivity;
 import com.example.arek.astroweather.astroweather.AstroCallback;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 
@@ -21,10 +23,9 @@ public class SunFragment extends Fragment implements AstroCallback {
 
     private static final String LATITUDE = "Latitude";
     private static final String LONGITUDE = "Longitude";
+    private static final String REFRESH_DATA = "Refresh Data";
 
     private AstroWeatherConfig astroWeatherConfig;
-    private TextView timer;
-    private Handler mHandler;
     private TextView latitude;
     private TextView longitude;
     private TextView sunrise;
@@ -40,16 +41,9 @@ public class SunFragment extends Fragment implements AstroCallback {
         View view = inflater.inflate(R.layout.fragment_sun, container, false);
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         astroWeatherConfig.registerForUpdates(this);
-        initTime(view);
         initTextViews(view);
         contentView();
         return view;
-    }
-
-    void initTime(View view) {
-        timer = (TextView) view.findViewById(R.id.time);
-        this.mHandler = new Handler();
-        this.mHandler.postDelayed(m_Runnable, 2000);
     }
 
     void initTextViews(View view) {
@@ -64,7 +58,6 @@ public class SunFragment extends Fragment implements AstroCallback {
     }
 
     void contentView() {
-
         String temp = null;
         this.latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         this.longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
@@ -78,6 +71,7 @@ public class SunFragment extends Fragment implements AstroCallback {
         this.twilightEvening.setText(temp);
         temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getMinute());
         this.twilightMorning.setText(temp);
+        Toast.makeText(getActivity(), REFRESH_DATA, Toast.LENGTH_SHORT).show();
     }
 
     public static double round(double value, int places) {
@@ -88,14 +82,6 @@ public class SunFragment extends Fragment implements AstroCallback {
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
-
-    private final Runnable m_Runnable = new Runnable() {
-        public void run() {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            timer.setText(dateFormat.format(Calendar.getInstance(TimeZone.getDefault()).getTime()));
-            SunFragment.this.mHandler.postDelayed(m_Runnable, 1000);
-        }
-    };
 
     @Override
     public void onSettingsUpdate() {

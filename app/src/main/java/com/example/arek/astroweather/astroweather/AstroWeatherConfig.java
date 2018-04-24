@@ -1,9 +1,12 @@
 package com.example.arek.astroweather.astroweather;
 
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
+import com.example.arek.astroweather.MainActivity;
+import com.example.arek.astroweather.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +21,7 @@ public class AstroWeatherConfig {
     private static final AstroWeatherConfig astroWeatherInstance = new AstroWeatherConfig();
     private Runnable updateAstro;
     private Set<AstroCallback> subscribers = new HashSet<>();
-    private long timeInterval = 5000;
+    private long timeInterval = 10000;
     final Handler handler = new Handler();
 
 

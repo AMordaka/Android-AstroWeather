@@ -63,8 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int id, long position) {
 
-                Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
-
                 switch ((int) position) {
                     case 0:
                         astroWeatherConfig.setTimeInterval(1000);
@@ -82,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
                         astroWeatherConfig.setTimeInterval(15 * 1000 * 60);
                         break;
                 }
+                Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
             }
 
             @Override

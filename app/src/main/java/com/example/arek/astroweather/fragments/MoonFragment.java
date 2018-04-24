@@ -19,8 +19,6 @@ import java.util.TimeZone;
 public class MoonFragment extends Fragment implements AstroCallback {
 
     private AstroWeatherConfig astroWeatherConfig;
-    private TextView timer;
-    private Handler mHandler;
     private TextView latitude;
     private TextView longitude;
     private TextView moonrise;
@@ -36,17 +34,11 @@ public class MoonFragment extends Fragment implements AstroCallback {
         View view = inflater.inflate(R.layout.fragment_moon, container, false);
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         astroWeatherConfig.registerForUpdates(this);
-        initTime(view);
         initTextViews(view);
         contentView();
         return view;
     }
 
-    void initTime(View view) {
-        timer = (TextView) view.findViewById(R.id.time);
-        this.mHandler = new Handler();
-        this.mHandler.postDelayed(m_Runnable, 2000);
-    }
 
     void initTextViews(View view) {
         latitude = (TextView) view.findViewById(R.id.latitude);
@@ -84,13 +76,6 @@ public class MoonFragment extends Fragment implements AstroCallback {
         return (double) tmp / factor;
     }
 
-    private final Runnable m_Runnable = new Runnable() {
-        public void run() {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            timer.setText(dateFormat.format(Calendar.getInstance(TimeZone.getDefault()).getTime()));
-            MoonFragment.this.mHandler.postDelayed(m_Runnable, 1000);
-        }
-    };
 
     @Override
     public void onSettingsUpdate() {

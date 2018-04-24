@@ -2,37 +2,44 @@ package com.example.arek.astroweather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.arek.astroweather.adapter.PagerAdapter;
-
-import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private final static String SUN = "Sun";
     private final static String MOON = "Moon";
-
     private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         super.onCreate(savedInstanceState);
-        initialize();
+        if(metrics.heightPixels == 1920 && metrics.widthPixels == 1080){
+            initializeHd();
+        }else{
+            initializeQhd();
+        }
+
+
     }
 
-    void initialize() {
+    void initializeQhd(){
+        setContentView(R.layout.activity_main_qhd);
+        configureToolbar();
+    }
+
+    void initializeHd() {
         setContentView(R.layout.activity_main);
         configureToolbar();
         configureTabLayout();
@@ -70,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
     void configureViewPager() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        if(viewPager != null) {
+            viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+            tabLayout.setupWithViewPager(viewPager);
+        }
     }
 
     @Override

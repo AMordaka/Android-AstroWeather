@@ -64,8 +64,9 @@
             android:id="@+id/buttonsave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/SAVE"
-            android:onClick="saveHandler"/>
+            android:layout_gravity="center_horizontal"
+            android:onClick="saveHandler"
+            android:text="@string/SAVE" />
 
     </LinearLayout>
 

@@ -65,10 +65,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 switch ((int) position) {
                     case 0:
-                        astroWeatherConfig.setTimeInterval(1000);
+                        astroWeatherConfig.setTimeInterval(5000);
                         break;
                     case 1:
-                        astroWeatherConfig.setTimeInterval(5000);
+                        astroWeatherConfig.setTimeInterval(10000);
                         break;
                     case 2:
                         astroWeatherConfig.setTimeInterval(30000);

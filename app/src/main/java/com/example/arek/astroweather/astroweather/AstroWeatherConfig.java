@@ -38,6 +38,7 @@ public class AstroWeatherConfig {
             }
         };
         handler.post(updateAstro);
+
     }
 
     public static AstroWeatherConfig getAstroWeatherInstance() {
@@ -86,5 +87,12 @@ public class AstroWeatherConfig {
 
     public void setTimeInterval(long timeInterval) {
         this.timeInterval = timeInterval;
+        update();
+        notifySubscribers();
     }
+
+    public long getTimeInterval(){
+        return this.timeInterval;
+}
+
 }

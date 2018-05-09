@@ -53,10 +53,25 @@ public class SettingsActivity extends AppCompatActivity {
         buttonSave = findViewById(R.id.buttonsave);
     }
 
+    private void setDefaultSpinner(){
+        if(astroWeatherConfig.getTimeInterval() == 5000){
+            refreshTimeSpinner.setSelection(0);
+        }else if(astroWeatherConfig.getTimeInterval() == 10000){
+            refreshTimeSpinner.setSelection(1);
+        }else if(astroWeatherConfig.getTimeInterval() == 30000){
+            refreshTimeSpinner.setSelection(2);
+        }else if(astroWeatherConfig.getTimeInterval() == 1000*60){
+            refreshTimeSpinner.setSelection(3);
+        }else if(astroWeatherConfig.getTimeInterval() == 15*1000*60){
+            refreshTimeSpinner.setSelection(4);
+        }
+    }
+
     void initSpinner() {
         refreshTimeSpinner = (Spinner) findViewById(R.id.refresh_time);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getIntervalNames());
         refreshTimeSpinner.setAdapter(adapter);
+        setDefaultSpinner();
         refreshTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -74,18 +89,20 @@ public class SettingsActivity extends AppCompatActivity {
                         astroWeatherConfig.setTimeInterval(30000);
                         break;
                     case 3:
-                        astroWeatherConfig.setTimeInterval(10 * 60);
+                        astroWeatherConfig.setTimeInterval(60000);
                         break;
                     case 4:
-                        astroWeatherConfig.setTimeInterval(15 * 1000 * 60);
+                        astroWeatherConfig.setTimeInterval(900000);
                         break;
                 }
-                Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
             }
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
+                setDefaultSpinner();
             }
         });
     }

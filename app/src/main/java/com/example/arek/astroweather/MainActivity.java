@@ -25,25 +25,17 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         if (metrics.heightPixels == 1920 && metrics.widthPixels == 1080) {
-            initializeHd();
+            configureToolbar();
+            configureTabLayout();
+            configureViewPager();
         } else {
-            initializeQhd();
+            configureToolbar();
         }
 
     }
 
-    void initializeQhd() {
-        setContentView(R.layout.activity_main_qhd);
-        configureToolbar();
-    }
-
-    void initializeHd() {
-        setContentView(R.layout.activity_main);
-        configureToolbar();
-        configureTabLayout();
-        configureViewPager();
-    }
 
     void configureTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);

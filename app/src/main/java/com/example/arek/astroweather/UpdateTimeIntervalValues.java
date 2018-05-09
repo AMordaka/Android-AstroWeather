@@ -4,8 +4,8 @@ public enum UpdateTimeIntervalValues {
     FIVE_SECONDS(5000),
     TEN_SECONDS(1000),
     THIRTY_SECONDS(30000),
-    MINUTE(1000 * 60),
-    FIFTEEN_MINUTES(1000 * 60 * 15);
+    MINUTE(60000),
+    FIFTEEN_MINUTES(900000);
 
     public final int seconds;
 

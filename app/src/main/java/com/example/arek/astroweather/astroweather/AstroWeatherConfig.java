@@ -8,9 +8,11 @@ import com.astrocalculator.AstroDateTime;
 import com.example.arek.astroweather.MainActivity;
 import com.example.arek.astroweather.SettingsActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -50,9 +52,16 @@ public class AstroWeatherConfig {
     }
 
     private AstroDateTime getAstroDateTime() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND), 1, false);
+        long deviceDate = System.currentTimeMillis();
+        int year = Integer.parseInt(new SimpleDateFormat("YYYY", Locale.ENGLISH).format(deviceDate));
+        int month = Integer.parseInt(new SimpleDateFormat("MM", Locale.ENGLISH).format(deviceDate));
+        int day = Integer.parseInt(new SimpleDateFormat("dd", Locale.ENGLISH).format(deviceDate));
+        int hour = Integer.parseInt(new SimpleDateFormat("hh", Locale.GERMANY).format(deviceDate));
+        int minute = Integer.parseInt(new SimpleDateFormat("mm", Locale.GERMANY).format(deviceDate));
+        int second = Integer.parseInt(new SimpleDateFormat("ss", Locale.GERMANY).format(deviceDate));
+        int timeZoneOffset = 1;
+        boolean dayLightSaving = true;
+        return new AstroDateTime(year, month, day, hour, minute, second, timeZoneOffset, dayLightSaving);
     }
 
     public AstroCalculator.Location getLocation() {
@@ -61,6 +70,8 @@ public class AstroWeatherConfig {
 
     public void setLocation(AstroCalculator.Location location) {
         this.location = location;
+        update();
+        notifySubscribers();
     }
 
     public AstroCalculator getAstroCalculator() {

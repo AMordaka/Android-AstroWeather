@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (metrics.heightPixels == 1920 && metrics.widthPixels == 1080) {
+        if (getResources().getBoolean(R.bool.isTablet)) {
             configureToolbar();
             configureTabLayout();
             configureViewPager();

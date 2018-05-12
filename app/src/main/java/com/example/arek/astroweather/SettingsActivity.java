@@ -51,6 +51,9 @@ public class SettingsActivity extends AppCompatActivity {
         longitude = findViewById(R.id.newlongitude);
         latitude = findViewById(R.id.newlatitude);
         buttonSave = findViewById(R.id.buttonsave);
+        latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
+        longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
+
     }
 
     private void setDefaultSpinner(){
@@ -114,6 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
             if ((mlatitude > 90 || mlatitude < -90) || (mlongitude < 0 || mlongitude > 180)) {
                 throw new Exception();
             }
+
             astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
             Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
         } catch (Exception ParseException) {

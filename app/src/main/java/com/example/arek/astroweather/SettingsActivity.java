@@ -1,127 +1,101 @@
 package com.example.arek.astroweather;
 
-import android.net.ParseException;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceActivity;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
-import com.astrocalculator.AstroCalculator;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
+import com.example.arek.astroweather.fragments.SettingsFragment;
 
-import java.util.ArrayList;
-import java.util.List;
+public class SettingsActivity extends PreferenceActivity {
 
-public class SettingsActivity extends AppCompatActivity {
-
-    private static final String LATITUDE = "Latitude";
-    private static final String LONGITUDE = "Longitude";
-    private static final String INCORECT_DATA = "Incorect Data";
-    private static final String SAVE_CHANGES = "Changes saved";
+    private AppCompatDelegate delegate;
 
     private AstroWeatherConfig astroWeatherConfig;
-    private Spinner refreshTimeSpinner;
-    private EditText longitude;
-    private EditText latitude;
-    private Button buttonSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getDelegate().installViewFactory();
+        getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
-        initSpinner();
-        initOthers();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
     }
 
-    List<String> getIntervalNames() {
-        List<String> intervalNames = new ArrayList<>();
-        for (UpdateTimeIntervalValues value : UpdateTimeIntervalValues.values()) {
-            intervalNames.add(value.name());
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getDelegate().onPostCreate(savedInstanceState);
+    }
+    public ActionBar getSupportActionBar() {
+        return getDelegate().getSupportActionBar();
+    }
+    public void setSupportActionBar(@Nullable Toolbar toolbar) {
+        getDelegate().setSupportActionBar(toolbar);
+    }
+    @Override
+    public MenuInflater getMenuInflater() {
+        return getDelegate().getMenuInflater();
+    }
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        getDelegate().setContentView(layoutResID);
+    }
+    @Override
+    public void setContentView(View view) {
+        getDelegate().setContentView(view);
+    }
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        getDelegate().setContentView(view, params);
+    }
+    @Override
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        getDelegate().addContentView(view, params);
+    }
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        getDelegate().onPostResume();
+    }
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+        getDelegate().setTitle(title);
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getDelegate().onConfigurationChanged(newConfig);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getDelegate().onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getDelegate().onDestroy();
+    }
+    public void invalidateOptionsMenu() {
+        getDelegate().invalidateOptionsMenu();
+    }
+    private AppCompatDelegate getDelegate() {
+        if (delegate == null) {
+            delegate = AppCompatDelegate.create(this, null);
+            setTitle(R.string.settings);
         }
-        return intervalNames;
+        return delegate;
     }
 
-    void initOthers() {
-        longitude = findViewById(R.id.newlongitude);
-        latitude = findViewById(R.id.newlatitude);
-        buttonSave = findViewById(R.id.buttonsave);
-        latitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
-        longitude.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
-
-    }
-
-    private void setDefaultSpinner(){
-        if(astroWeatherConfig.getTimeInterval() == 5000){
-            refreshTimeSpinner.setSelection(0);
-        }else if(astroWeatherConfig.getTimeInterval() == 10000){
-            refreshTimeSpinner.setSelection(1);
-        }else if(astroWeatherConfig.getTimeInterval() == 30000){
-            refreshTimeSpinner.setSelection(2);
-        }else if(astroWeatherConfig.getTimeInterval() == 1000*60){
-            refreshTimeSpinner.setSelection(3);
-        }else if(astroWeatherConfig.getTimeInterval() == 15*1000*60){
-            refreshTimeSpinner.setSelection(4);
-        }
-    }
-
-    void initSpinner() {
-        refreshTimeSpinner = (Spinner) findViewById(R.id.refresh_time);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, getIntervalNames());
-        refreshTimeSpinner.setAdapter(adapter);
-        setDefaultSpinner();
-        refreshTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int id, long position) {
-
-                switch ((int) position) {
-                    case 0:
-                        astroWeatherConfig.setTimeInterval(5000);
-                        break;
-                    case 1:
-                        astroWeatherConfig.setTimeInterval(10000);
-                        break;
-                    case 2:
-                        astroWeatherConfig.setTimeInterval(30000);
-                        break;
-                    case 3:
-                        astroWeatherConfig.setTimeInterval(60000);
-                        break;
-                    case 4:
-                        astroWeatherConfig.setTimeInterval(900000);
-                        break;
-                }
-                //Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
-            }
-
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                setDefaultSpinner();
-            }
-        });
-    }
-
-    public void saveHandler(View view) {
-        try {
-            double mlatitude = Double.parseDouble(latitude.getText().toString());
-            double mlongitude = Double.parseDouble(longitude.getText().toString());
-            if ((mlatitude > 90 || mlatitude < -90) || (mlongitude < 0 || mlongitude > 180)) {
-                throw new Exception();
-            }
-
-            astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
-            Toast.makeText(SettingsActivity.this, SAVE_CHANGES, Toast.LENGTH_SHORT).show();
-        } catch (Exception ParseException) {
-            Toast.makeText(SettingsActivity.this, INCORECT_DATA, Toast.LENGTH_SHORT).show();
-        }
-    }
 }

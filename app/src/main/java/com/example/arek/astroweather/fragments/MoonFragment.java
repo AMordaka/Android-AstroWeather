@@ -1,7 +1,6 @@
 package com.example.arek.astroweather.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,6 @@ import android.widget.TextView;
 import com.example.arek.astroweather.R;
 import com.example.arek.astroweather.astroweather.AstroCallback;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
 
 public class MoonFragment extends Fragment implements AstroCallback {
 

@@ -2,7 +2,6 @@ package com.example.arek.astroweather.fragments;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arek.astroweather.R;
-import com.example.arek.astroweather.SettingsActivity;
 import com.example.arek.astroweather.astroweather.AstroCallback;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
 
 public class SunFragment extends Fragment implements AstroCallback {
 
@@ -71,7 +65,7 @@ public class SunFragment extends Fragment implements AstroCallback {
         this.twilightEvening.setText(temp);
         temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getMinute());
         this.twilightMorning.setText(temp);
-        //Toast.makeText(getActivity(), REFRESH_DATA, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), REFRESH_DATA, Toast.LENGTH_SHORT).show();
     }
 
     public static double round(double value, int places) {

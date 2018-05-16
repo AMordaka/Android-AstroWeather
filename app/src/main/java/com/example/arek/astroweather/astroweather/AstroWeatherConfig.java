@@ -53,7 +53,7 @@ public class AstroWeatherConfig {
 
     private AstroDateTime getAstroDateTime() {
         long deviceDate = System.currentTimeMillis();
-        int year = Integer.parseInt(new SimpleDateFormat("YYYY", Locale.ENGLISH).format(deviceDate));
+        int year = Integer.parseInt(new SimpleDateFormat("yyyy", Locale.ENGLISH).format(deviceDate));
         int month = Integer.parseInt(new SimpleDateFormat("MM", Locale.ENGLISH).format(deviceDate));
         int day = Integer.parseInt(new SimpleDateFormat("dd", Locale.ENGLISH).format(deviceDate));
         int hour = Integer.parseInt(new SimpleDateFormat("hh", Locale.GERMANY).format(deviceDate));
@@ -96,8 +96,8 @@ public class AstroWeatherConfig {
         }
     }
 
-    public void setTimeInterval(long timeInterval) {
-        this.timeInterval = timeInterval;
+    public void setTimeInterval(String timeInterval) {
+        this.timeInterval = Long.parseLong(timeInterval);
         update();
         notifySubscribers();
     }

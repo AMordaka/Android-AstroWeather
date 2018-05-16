@@ -1,7 +1,9 @@
 package com.example.arek.astroweather;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +12,9 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.astrocalculator.AstroCalculator;
 import com.example.arek.astroweather.adapter.PagerAdapter;
+import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,10 +24,15 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+    private SharedPreferences preferences;
+    private AstroWeatherConfig astroWeatherConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (getResources().getBoolean(R.bool.isTablet)) {
@@ -33,9 +42,21 @@ public class MainActivity extends AppCompatActivity {
         } else {
             configureToolbar();
         }
-
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        synchAstroWeather();
+    }
+
+    void synchAstroWeather(){
+        astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), null));
+        double mlatitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_latitude), null));
+        double mlongitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_longitude), null));
+        astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
+    }
 
     void configureTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);

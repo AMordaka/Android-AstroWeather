@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String SUN = "Sun";
     private final static String MOON = "Moon";
+    private final static String WEATHER = "Weather";
+
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(SUN));
         tabLayout.addTab(tabLayout.newTab().setText(MOON));
+        tabLayout.addTab(tabLayout.newTab().setText(WEATHER));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

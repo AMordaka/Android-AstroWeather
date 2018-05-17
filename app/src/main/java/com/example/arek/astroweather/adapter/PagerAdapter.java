@@ -3,10 +3,10 @@ package com.example.arek.astroweather.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import com.example.arek.astroweather.fragments.MoonFragment;
 import com.example.arek.astroweather.fragments.SunFragment;
+import com.example.arek.astroweather.fragments.ForecastFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -23,6 +23,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return "Moon";
 
+            case 2:
+                return "Forecast";
+
             default:
                 return super.getPageTitle(position);
         }
@@ -36,6 +39,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return new SunFragment();
             case 1:
                 return new MoonFragment();
+            case 2:
+                return new ForecastFragment();
             default:
                 return null;
         }
@@ -43,6 +48,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

@@ -1,41 +1,81 @@
 package com.example.arek.astroweather;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.example.arek.astroweather.adapter.PagerAdapter;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
+import com.example.arek.astroweather.data.Channel;
+import com.example.arek.astroweather.data.Condition;
+import com.example.arek.astroweather.data.Units;
+import com.example.arek.astroweather.fragments.ForecastFragment;
+import com.example.arek.astroweather.listener.WeatherServiceListener;
+import com.example.arek.astroweather.service.WeatherCacheService;
+import com.example.arek.astroweather.service.YahooWeatherService;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WeatherServiceListener, LocationListener{
 
     private final static String SUN = "Sun";
     private final static String MOON = "Moon";
     private final static String WEATHER = "Weather";
+    public static int GET_WEATHER_FROM_CURRENT_LOCATION = 0x00001;
+
+    private ImageView weatherIconImageView;
+    private TextView temperatureTextView;
+    private TextView conditionTextView;
+    private TextView locationTextView;
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+    private boolean weatherServicesHasFailed = false;
+
+    private ProgressDialog loadingDialog;
     private SharedPreferences preferences;
+
     private AstroWeatherConfig astroWeatherConfig;
+    private WeatherCacheService cacheService;
+    private YahooWeatherService weatherService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
+
         super.onCreate(savedInstanceState);
+
+
+
+        weatherService = new YahooWeatherService(this);
+
+        cacheService = new WeatherCacheService(this);
+
         setContentView(R.layout.activity_main);
         if (getResources().getBoolean(R.bool.isTablet)) {
             configureToolbar();
@@ -50,7 +90,81 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        weatherService.setTemperatureUnit(preferences.getString(getString(R.string.pref_temperature_unit), null));
         synchAstroWeather();
+
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setMessage(getString(R.string.loading));
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
+
+        String location = "Lodz";
+
+        if (preferences.getBoolean(getString(R.string.pref_geolocation_enabled), true)) {
+            String locationCache = preferences.getString(getString(R.string.pref_cached_location), null);
+
+            if (locationCache == null) {
+                getWeatherFromCurrentLocation();
+            } else {
+                location = locationCache;
+            }
+        }
+
+        if (location != null) {
+            weatherService.refreshWeather(location);
+        }
+    }
+
+    private void getWeatherFromCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+            }, GET_WEATHER_FROM_CURRENT_LOCATION);
+
+            return;
+        }
+
+        // system's LocationManager
+        final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        Criteria locationCriteria = new Criteria();
+
+        if (isNetworkEnabled) {
+            locationCriteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        } else if (isGPSEnabled) {
+            locationCriteria.setAccuracy(Criteria.ACCURACY_FINE);
+        }
+
+        locationManager.requestSingleUpdate(locationCriteria, this, null);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == MainActivity.GET_WEATHER_FROM_CURRENT_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getWeatherFromCurrentLocation();
+            } else {
+                loadingDialog.hide();
+
+                AlertDialog messageDialog = new AlertDialog.Builder(this)
+                        .setMessage(getString(R.string.location_permission_needed))
+                        .setPositiveButton(getString(R.string.disable_geolocation), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startSettingsActivity();
+                            }
+                        })
+                        .create();
+
+                messageDialog.show();
+            }
+        }
+    }
+
+    private void startSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     void synchAstroWeather(){
@@ -62,14 +176,15 @@ public class MainActivity extends AppCompatActivity {
 
     void configureTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(SUN));
-        tabLayout.addTab(tabLayout.newTab().setText(MOON));
         tabLayout.addTab(tabLayout.newTab().setText(WEATHER));
+        tabLayout.addTab(tabLayout.newTab().setText(MOON));
+        tabLayout.addTab(tabLayout.newTab().setText(SUN));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -94,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         if (viewPager != null) {
             viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+            viewPager.setOffscreenPageLimit(3);
             tabLayout.setupWithViewPager(viewPager);
         }
     }
@@ -117,5 +233,60 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public void serviceSuccess(Channel channel) {
+        loadingDialog.hide();
+
+        Condition condition = channel.getItem().getCondition();
+        Units units = channel.getUnits();
+        Condition[] forecast = channel.getItem().getForecast();
+
+
+        if(viewPager.getCurrentItem() == 0) {
+            ForecastFragment fragment = (ForecastFragment) viewPager
+                    .getAdapter()
+                    .instantiateItem(viewPager, viewPager.getCurrentItem());
+            fragment.loadForecast(forecast, channel.getUnits());
+        }
+
+        cacheService.save(channel);
+    }
+
+    @Override
+    public void serviceFailure(Exception exception) {
+        // display error if this is the second failure
+        if (weatherServicesHasFailed) {
+            loadingDialog.hide();
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        } else {
+            // error doing reverse geocoding, load weather data from cache
+            weatherServicesHasFailed = true;
+            // OPTIONAL: let the user know an error has occurred then fallback to the cached data
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+
+            cacheService.load(this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

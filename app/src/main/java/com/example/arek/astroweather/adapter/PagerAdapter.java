@@ -18,13 +18,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Sun";
+                return "Forecast";
 
             case 1:
                 return "Moon";
 
             case 2:
-                return "Forecast";
+                return "Sun";
 
             default:
                 return super.getPageTitle(position);
@@ -36,11 +36,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new SunFragment();
+                return new ForecastFragment();
             case 1:
                 return new MoonFragment();
             case 2:
-                return new ForecastFragment();
+                return new SunFragment();
             default:
                 return null;
         }

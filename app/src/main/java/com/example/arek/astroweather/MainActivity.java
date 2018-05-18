@@ -46,11 +46,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     private final static String WEATHER = "Weather";
     public static int GET_WEATHER_FROM_CURRENT_LOCATION = 0x00001;
 
-    private ImageView weatherIconImageView;
-    private TextView temperatureTextView;
-    private TextView conditionTextView;
-    private TextView locationTextView;
-
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     @Override
     protected void onStart() {
         super.onStart();
-        weatherService.setTemperatureUnit(preferences.getString(getString(R.string.pref_temperature_unit), null));
+        weatherService.setTemperatureUnit(preferences.getString(getString(R.string.pref_temperature_unit), "C"));
         synchAstroWeather();
 
         loadingDialog = new ProgressDialog(this);
@@ -168,9 +163,9 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     }
 
     void synchAstroWeather(){
-        astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), null));
-        double mlatitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_latitude), null));
-        double mlongitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_longitude), null));
+        astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), "5s"));
+        double mlatitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_latitude), "52"));
+        double mlongitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_longitude), "22"));
         astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
     }
 

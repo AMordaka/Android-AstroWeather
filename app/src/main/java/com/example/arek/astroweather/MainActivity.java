@@ -38,6 +38,8 @@ import com.example.arek.astroweather.listener.WeatherServiceListener;
 import com.example.arek.astroweather.service.WeatherCacheService;
 import com.example.arek.astroweather.service.YahooWeatherService;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener, LocationListener{
 
@@ -93,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog.setCancelable(false);
         loadingDialog.show();
 
-        String location = "Lodz";
+        double lat = astroWeatherConfig.getLocation().getLatitude();
+        double lon = astroWeatherConfig.getLocation().getLongitude();
+
+        String location = String.valueOf("(" + lat + "," + lon + ")");
 
         if (preferences.getBoolean(getString(R.string.pref_geolocation_enabled), true)) {
             String locationCache = preferences.getString(getString(R.string.pref_cached_location), null);
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         viewPager = (ViewPager) findViewById(R.id.pager);
         if (viewPager != null) {
             viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-            viewPager.setOffscreenPageLimit(3);
+            viewPager.setOffscreenPageLimit(5);
             tabLayout.setupWithViewPager(viewPager);
         }
     }
@@ -234,16 +239,16 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public void serviceSuccess(Channel channel) {
         loadingDialog.hide();
 
-        Condition condition = channel.getItem().getCondition();
+/*        Condition condition = channel.getItem().getCondition();
         Units units = channel.getUnits();
-        Condition[] forecast = channel.getItem().getForecast();
+        Condition[] forecast = channel.getItem().getForecast();*/
 
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
 
-        if(viewPager.getCurrentItem() == 0) {
-            ForecastFragment fragment = (ForecastFragment) viewPager
-                    .getAdapter()
-                    .instantiateItem(viewPager, viewPager.getCurrentItem());
-            fragment.loadForecast(forecast, channel.getUnits());
+        for(Fragment fragment : fragmentList){
+            if(fragment instanceof ForecastFragment){
+                ((ForecastFragment) fragment).loadForecast(channel.getItem().getForecast(), channel.getUnits());
+            }
         }
 
         cacheService.save(channel);

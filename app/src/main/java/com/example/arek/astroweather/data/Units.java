@@ -9,7 +9,6 @@ public class Units implements JSONPopulator {
     private String speed;
 
 
-
     public String getTemperature() {
         return temperature;
     }

@@ -31,9 +31,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 3:
                 return "Basic";
 
-            case 4:
-                return "Extra";
-
             default:
                 return super.getPageTitle(position);
         }
@@ -51,8 +48,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return new SunFragment();
             case 3:
                 return new BasicDataFragment();
-            case 4:
-                return new ExtralDataFragment();
             default:
                 return null;
         }
@@ -60,6 +55,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 }

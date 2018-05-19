@@ -59,7 +59,7 @@ public class MoonFragment extends Fragment implements AstroCallback {
         temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getDay() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getMonth() + "-" + astroWeatherConfig.getAstroCalculator().getMoonInfo().getNextFullMoon().getYear());
         this.fullMoon.setText(temp);
         this.lunarPhase.setText(String.valueOf(round(astroWeatherConfig.getAstroCalculator().getMoonInfo().getIllumination(), 2)));
-        this.dayMonthLuar.setText(String.valueOf((int)astroWeatherConfig.getAstroCalculator().getMoonInfo().getAge()));
+        this.dayMonthLuar.setText(String.valueOf((int) astroWeatherConfig.getAstroCalculator().getMoonInfo().getAge()));
     }
 
     public static double round(double value, int places) {

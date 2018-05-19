@@ -46,7 +46,8 @@ public class ForecastFragment extends Fragment {
     private TextView highTemperatureTextView5;
     private TextView lowTemperatureTextView5;
 
-    public ForecastFragment() {}
+    public ForecastFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

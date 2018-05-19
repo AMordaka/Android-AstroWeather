@@ -37,7 +37,7 @@ import com.example.arek.astroweather.service.YahooWeatherService;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements WeatherServiceListener, LocationListener{
+public class MainActivity extends AppCompatActivity implements WeatherServiceListener, LocationListener {
 
     private final static String SUN = "Sun";
     private final static String MOON = "Moon";
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
 
         super.onCreate(savedInstanceState);
-
 
 
         weatherService = new YahooWeatherService(this);
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         startActivity(intent);
     }
 
-    void synchAstroWeather(){
+    void synchAstroWeather() {
         astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), "5s"));
         double mlatitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_latitude), "52"));
         double mlongitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_longitude), "22"));
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         viewPager = (ViewPager) findViewById(R.id.pager);
         if (viewPager != null) {
             viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-            viewPager.setOffscreenPageLimit(5);
+            viewPager.setOffscreenPageLimit(4);
             tabLayout.setupWithViewPager(viewPager);
         }
     }
@@ -241,11 +240,11 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
 
-        for(Fragment fragment : fragmentList){
-            if(fragment instanceof ForecastFragment){
+        for (Fragment fragment : fragmentList) {
+            if (fragment instanceof ForecastFragment) {
                 ((ForecastFragment) fragment).loadForecast(channel);
             }
-            if(fragment instanceof BasicDataFragment){
+            if (fragment instanceof BasicDataFragment) {
                 ((BasicDataFragment) fragment).loadForecast(channel);
             }
         }

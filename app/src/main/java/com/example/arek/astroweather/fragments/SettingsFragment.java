@@ -39,7 +39,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     }
 
 
-    void findPreferencesFromXml(){
+    void findPreferencesFromXml() {
         addPreferencesFromResource(R.xml.app_preferences);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         geolocationEnabledPreference = (SwitchPreference) findPreference(getString(R.string.pref_geolocation_enabled));
@@ -48,7 +48,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
     }
 
-    void setupPreferences(){
+    void setupPreferences() {
         manualLatitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         manualLongitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
         bindPreferenceSummaryToValue(manualLongitudePreference);
@@ -58,8 +58,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
     }
 
-    void checkPreferences(){
-        if(!preferences.getBoolean(getString(R.string.pref_needs_setup), false)) {
+    void checkPreferences() {
+        if (!preferences.getBoolean(getString(R.string.pref_needs_setup), false)) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(getString(R.string.pref_needs_setup), false);
             editor.apply();
@@ -111,10 +111,10 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 if (doubleValue < 0 || doubleValue > 180) {
                     throw new Exception();
                 }
-            }catch (Exception e) {
-                    Toast.makeText(getActivity(), INCORECT_DATA, Toast.LENGTH_SHORT).show();
-                    return false;
-                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), INCORECT_DATA, Toast.LENGTH_SHORT).show();
+                return false;
+            }
             preference.setSummary(stringValue);
         }
 

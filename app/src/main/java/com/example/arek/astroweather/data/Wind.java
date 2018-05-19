@@ -3,19 +3,18 @@ package com.example.arek.astroweather.data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Units implements JSONPopulator {
-    private String temperature;
-    private String pressure;
+public class Wind implements JSONPopulator {
+
+    private String chill;
+    private String direction;
     private String speed;
 
-
-
-    public String getTemperature() {
-        return temperature;
+    public String getChill() {
+        return chill;
     }
 
-    public String getPressure() {
-        return pressure;
+    public String getDirection() {
+        return direction;
     }
 
     public String getSpeed() {
@@ -24,8 +23,8 @@ public class Units implements JSONPopulator {
 
     @Override
     public void populate(JSONObject data) {
-        temperature = data.optString("temperature");
-        pressure = data.optString("pressure");
+        chill = data.optString("chill");
+        direction = data.optString("direction");
         speed = data.optString("speed");
     }
 
@@ -34,8 +33,8 @@ public class Units implements JSONPopulator {
         JSONObject data = new JSONObject();
 
         try {
-            data.put("temperature", temperature);
-            data.put("pressure", pressure);
+            data.put("chill", chill);
+            data.put("direction", direction);
             data.put("speed", speed);
         } catch (JSONException e) {
             e.printStackTrace();

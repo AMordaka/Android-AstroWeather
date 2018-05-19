@@ -36,5 +36,7 @@
     <string name="day">Day</string>
     <string name="high">High</string>
     <string name="low">Low</string>
+    <string name="pressure">Pressure</string>
+    <string name="description">Description</string>
 
 </resources>

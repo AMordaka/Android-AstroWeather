@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.arek.astroweather.R;
+import com.example.arek.astroweather.data.Channel;
 import com.example.arek.astroweather.data.Condition;
 import com.example.arek.astroweather.data.Units;
 
@@ -84,7 +85,10 @@ public class ForecastFragment extends Fragment {
         return view;
     }
 
-    public void loadForecast(Condition[] forecast, Units units) {
+    public void loadForecast(Channel channel) {
+        Condition[] forecast = channel.getItem().getForecast();
+        Units units = channel.getUnits();
+
         int weatherIconImageResource = getResources().getIdentifier("icon_" + forecast[0].getCode(), "drawable", getActivity().getPackageName());
 
         weatherIconImageView.setImageResource(weatherIconImageResource);

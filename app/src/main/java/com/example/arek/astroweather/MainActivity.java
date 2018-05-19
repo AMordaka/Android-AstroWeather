@@ -20,19 +20,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.example.arek.astroweather.adapter.PagerAdapter;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 import com.example.arek.astroweather.data.Channel;
-import com.example.arek.astroweather.data.Condition;
-import com.example.arek.astroweather.data.Units;
+import com.example.arek.astroweather.fragments.BasicDataFragment;
 import com.example.arek.astroweather.fragments.ForecastFragment;
 import com.example.arek.astroweather.listener.WeatherServiceListener;
 import com.example.arek.astroweather.service.WeatherCacheService;
@@ -247,7 +243,10 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
         for(Fragment fragment : fragmentList){
             if(fragment instanceof ForecastFragment){
-                ((ForecastFragment) fragment).loadForecast(channel.getItem().getForecast(), channel.getUnits());
+                ((ForecastFragment) fragment).loadForecast(channel);
+            }
+            if(fragment instanceof BasicDataFragment){
+                ((BasicDataFragment) fragment).loadForecast(channel);
             }
         }
 

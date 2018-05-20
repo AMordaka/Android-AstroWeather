@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.example.arek.astroweather.MainActivity;
 import com.example.arek.astroweather.R;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
+import com.example.arek.astroweather.fragments.Preference.LatitudeEditTextPreference;
+import com.example.arek.astroweather.fragments.Preference.LocationEditTextPreference;
+import com.example.arek.astroweather.fragments.Preference.LongitudeEditTextPreference;
 
 
 public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -26,8 +29,10 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private AstroWeatherConfig astroWeatherConfig;
 
     private SwitchPreference geolocationEnabledPreference;
-    private EditTextPreference manualLongitudePreference;
-    private EditTextPreference manualLatitudePreference;
+    private LongitudeEditTextPreference manualLongitudePreference;
+    private LatitudeEditTextPreference manualLatitudePreference;
+
+    private LocationEditTextPreference customEditTextPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         addPreferencesFromResource(R.xml.app_preferences);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         geolocationEnabledPreference = (SwitchPreference) findPreference(getString(R.string.pref_geolocation_enabled));
-        manualLongitudePreference = (EditTextPreference) findPreference(getString(R.string.pref_manual_longitude));
-        manualLatitudePreference = (EditTextPreference) findPreference(getString(R.string.pref_manual_latitude));
+        manualLongitudePreference = (LongitudeEditTextPreference) findPreference(getString(R.string.pref_manual_longitude));
+        manualLatitudePreference = (LatitudeEditTextPreference) findPreference(getString(R.string.pref_manual_latitude));
+        customEditTextPreference = (LocationEditTextPreference) findPreference(getString(R.string.pref_custom));
 
     }
 
@@ -79,14 +85,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        if (geolocationEnabledPreference.isChecked()) {
-            manualLongitudePreference.setEnabled(false);
-            manualLatitudePreference.setEnabled(false);
-        } else {
             manualLongitudePreference.setEnabled(true);
             manualLatitudePreference.setEnabled(true);
-        }
-
     }
 
     private void bindPreferenceSummaryToValue(Preference preference) {
@@ -104,11 +104,22 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
             preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
 
-        } else if (preference instanceof EditTextPreference) {
-
+        } else if (preference instanceof LatitudeEditTextPreference) {
             try {
                 double doubleValue = Double.parseDouble(stringValue);
-                if (doubleValue < 0 || doubleValue > 90) {
+                if (doubleValue < -90 || doubleValue > 90) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), INCORECT_DATA, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            preference.setSummary(stringValue);
+        }
+        else if (preference instanceof LongitudeEditTextPreference) {
+            try {
+                double doubleValue = Double.parseDouble(stringValue);
+                if (doubleValue < -180 || doubleValue > 180) {
                     throw new Exception();
                 }
             } catch (Exception e) {

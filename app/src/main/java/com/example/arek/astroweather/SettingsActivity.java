@@ -12,21 +12,18 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 import com.example.arek.astroweather.fragments.SettingsFragment;
 
 public class SettingsActivity extends PreferenceActivity {
 
     private AppCompatDelegate delegate;
 
-    private AstroWeatherConfig astroWeatherConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
     }
 

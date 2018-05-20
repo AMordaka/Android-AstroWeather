@@ -27,7 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/weatherIconImageView"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:text="@string/description"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/light_text"
         tools:layout_marginTop="10dp" />

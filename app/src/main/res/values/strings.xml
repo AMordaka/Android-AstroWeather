@@ -38,5 +38,9 @@
     <string name="low">Low</string>
     <string name="pressure">Pressure</string>
     <string name="description">Description</string>
+    <string name="speed">Speed</string>
+    <string name="direction">Direction</string>
+    <string name="humidity">humidity</string>
+    <string name="visibility">visibility</string>
 
 </resources>

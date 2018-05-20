@@ -65,6 +65,7 @@ public class SunFragment extends Fragment implements AstroCallback {
         this.twilightEvening.setText(temp);
         temp = String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getHour()) + ":" + String.valueOf(astroWeatherConfig.getAstroCalculator().getSunInfo().getTwilightMorning().getMinute());
         this.twilightMorning.setText(temp);
+        Toast.makeText(getActivity(), "Refresh Data", Toast.LENGTH_SHORT).show();
     }
 
     public static double round(double value, int places) {

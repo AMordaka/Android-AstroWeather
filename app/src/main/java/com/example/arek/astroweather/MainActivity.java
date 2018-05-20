@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -58,7 +59,12 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.edit().remove(getString(R.string.pref_manual_latitude)).apply();
+        preferences.edit().remove(getString(R.string.pref_manual_longitude)).apply();
+
+
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
 
         super.onCreate(savedInstanceState);
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         locationManager.requestSingleUpdate(locationCriteria, this, null);
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+/*    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == MainActivity.GET_WEATHER_FROM_CURRENT_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getWeatherFromCurrentLocation();
@@ -155,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 messageDialog.show();
             }
         }
-    }
+    }*/
 
     private void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -163,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     }
 
     void synchAstroWeather() {
-        astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), "5s"));
+        astroWeatherConfig.setTimeInterval(preferences.getString(getString(R.string.pref_refreshing_time), "5000"));
         double mlatitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_latitude), "52"));
         double mlongitude = Double.parseDouble(preferences.getString(getString(R.string.pref_manual_longitude), "22"));
         astroWeatherConfig.setLocation(new AstroCalculator.Location(mlatitude, mlongitude));
@@ -234,9 +240,9 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public void serviceSuccess(Channel channel) {
         loadingDialog.hide();
 
-/*        Condition condition = channel.getItem().getCondition();
-        Units units = channel.getUnits();
-        Condition[] forecast = channel.getItem().getForecast();*/
+        String link = channel.getItem().getLink();
+        link = link.substring(link.lastIndexOf("-")+ 1);
+        String woeid = link.substring(0, link.length()-1);
 
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
 

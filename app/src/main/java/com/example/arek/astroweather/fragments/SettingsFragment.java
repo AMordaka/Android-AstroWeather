@@ -108,7 +108,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
             try {
                 double doubleValue = Double.parseDouble(stringValue);
-                if (doubleValue < 0 || doubleValue > 180) {
+                if (doubleValue < 0 || doubleValue > 90) {
                     throw new Exception();
                 }
             } catch (Exception e) {

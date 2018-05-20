@@ -23,13 +23,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return "Forecast";
 
             case 1:
-                return "Moon";
+                return "Basic";
 
             case 2:
                 return "Sun";
 
             case 3:
-                return "Basic";
+                return "Moon";
+
 
             default:
                 return super.getPageTitle(position);
@@ -43,11 +44,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new ForecastFragment();
             case 1:
-                return new MoonFragment();
+                return new BasicDataFragment();
             case 2:
                 return new SunFragment();
             case 3:
-                return new BasicDataFragment();
+                return new MoonFragment();
             default:
                 return null;
         }

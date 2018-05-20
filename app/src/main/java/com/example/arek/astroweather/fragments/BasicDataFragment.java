@@ -72,9 +72,9 @@ public class BasicDataFragment extends Fragment {
         pressureTextView.setText(temp);
         temp = "Speed: " + channel.getWind().getSpeed() + " " + channel.getUnits().getSpeed();
         speedTextView.setText(temp);
-        temp = "Direction: " + channel.getWind().getDirection();
+        temp = "Direction: " + channel.getWind().getDirection() + '\u00B0';
         directionTextView.setText(temp);
-        temp = "Humidity: " + channel.getAtmosphere().getHumidity() + "%";
+        temp = "Humidity: " + channel.getAtmosphere().getHumidity() + " %";
         humidityTextView.setText(temp);
         temp = "Visibility: " + channel.getAtmosphere().getVisibility() + "%";
         visibilityTextView.setText(temp);

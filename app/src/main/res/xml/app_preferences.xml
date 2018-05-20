@@ -1,4 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.example.arek.astroweather.fragments.Preference.LocationEditTextPreference
+        android:capitalize="words"
+        android:inputType="textCapWords"
+        android:key="@string/pref_custom"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/current_location"
+        />
     <com.example.arek.astroweather.fragments.Preference.LongitudeEditTextPreference
         android:capitalize="words"
         android:inputType="textCapWords"
@@ -32,13 +42,4 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_title_refresh_time" />
 
-    <com.example.arek.astroweather.fragments.Preference.LocationEditTextPreference
-        android:capitalize="words"
-        android:inputType="textCapWords"
-        android:key="@string/pref_custom"
-        android:maxLines="1"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="Location"
-        />
 </PreferenceScreen>

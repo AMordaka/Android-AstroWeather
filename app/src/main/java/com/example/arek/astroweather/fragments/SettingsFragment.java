@@ -57,6 +57,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     void setupPreferences() {
         manualLatitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         manualLongitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_custom)));
         bindPreferenceSummaryToValue(manualLongitudePreference);
         bindPreferenceSummaryToValue(manualLatitudePreference);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_temperature_unit)));
@@ -126,6 +127,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                 Toast.makeText(getActivity(), INCORECT_DATA, Toast.LENGTH_SHORT).show();
                 return false;
             }
+            preference.setSummary(stringValue);
+        }
+        else if(preference instanceof LocationEditTextPreference){
             preference.setSummary(stringValue);
         }
 

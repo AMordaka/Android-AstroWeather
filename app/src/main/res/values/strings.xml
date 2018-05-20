@@ -43,5 +43,6 @@
     <string name="humidity">humidity</string>
     <string name="visibility">visibility</string>
     <string name="pref_custom">customPref</string>
+    <string name="current_location">Current Location:</string>
 
 </resources>

@@ -94,12 +94,15 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage(getString(R.string.loading));
         loadingDialog.setCancelable(false);
+
         loadingDialog.show();
 
-        double lat = astroWeatherConfig.getLocation().getLatitude();
+        /*double lat = astroWeatherConfig.getLocation().getLatitude();
         double lon = astroWeatherConfig.getLocation().getLongitude();
 
-        String location = String.valueOf("(" + lat + "," + lon + ")");
+        String location = String.valueOf("(" + lat + "," + lon + ")");*/
+
+        String location = preferences.getString(getString(R.string.pref_custom),"Lodz");
 
         if (preferences.getBoolean(getString(R.string.pref_geolocation_enabled), true)) {
             String locationCache = preferences.getString(getString(R.string.pref_cached_location), null);
@@ -238,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     @Override
     public void serviceSuccess(Channel channel) {
-        loadingDialog.hide();
+        loadingDialog.dismiss();
 
         String link = channel.getItem().getLink();
         link = link.substring(link.lastIndexOf("-")+ 1);
@@ -262,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public void serviceFailure(Exception exception) {
         // display error if this is the second failure
         if (weatherServicesHasFailed) {
-            loadingDialog.hide();
+            loadingDialog.dismiss();
             Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
         } else {
             // error doing reverse geocoding, load weather data from cache

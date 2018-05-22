@@ -27,6 +27,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.arek.astroweather.MainActivity" />
         </activity>
+        <activity android:name=".FavouriteActivity"/>
     </application>
-
 </manifest>

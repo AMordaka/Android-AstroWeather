@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.ExecutionException;
 
 public class YahooWeatherService {
     private WeatherServiceListener listener;
@@ -32,9 +33,11 @@ public class YahooWeatherService {
         this.temperatureUnit = temperatureUnit;
     }
 
-    public void refreshWeather(String location) {
 
-        new AsyncTask<String, Void, Channel>() {
+
+    public Channel refreshWeather(String location) {
+
+        AsyncTask<String, Void, Channel> task =new AsyncTask<String, Void, Channel>() {
             @Override
             protected Channel doInBackground(String[] locations) {
 
@@ -88,6 +91,7 @@ public class YahooWeatherService {
                 return null;
             }
 
+
             @Override
             protected void onPostExecute(Channel channel) {
 
@@ -99,8 +103,20 @@ public class YahooWeatherService {
 
             }
 
-        }.execute(location);
+        };
+        try {
+            return task.execute(location).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
+
+
+
 
     private class LocationWeatherException extends Exception {
         LocationWeatherException(String detailMessage) {

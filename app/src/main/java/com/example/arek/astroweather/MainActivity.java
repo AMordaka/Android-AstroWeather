@@ -23,19 +23,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.example.arek.astroweather.adapter.PagerAdapter;
 import com.example.arek.astroweather.astroweather.AstroWeatherConfig;
 import com.example.arek.astroweather.data.Channel;
+import com.example.arek.astroweather.data.FavouriteItem;
 import com.example.arek.astroweather.fragments.BasicDataFragment;
 import com.example.arek.astroweather.fragments.ForecastFragment;
 import com.example.arek.astroweather.listener.WeatherServiceListener;
 import com.example.arek.astroweather.service.WeatherCacheService;
 import com.example.arek.astroweather.service.YahooWeatherService;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmModel;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceListener, LocationListener {
@@ -47,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    private Realm realm;
 
     private boolean weatherServicesHasFailed = false;
 
@@ -63,15 +74,16 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.edit().remove(getString(R.string.pref_manual_latitude)).apply();
         preferences.edit().remove(getString(R.string.pref_manual_longitude)).apply();
+        preferences.edit().remove(getString(R.string.pref_is_favourite_location)).apply();
 
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
 
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
-
         super.onCreate(savedInstanceState);
-
-
+        initDataBase();
         weatherService = new YahooWeatherService(this);
-
         cacheService = new WeatherCacheService(this);
 
         setContentView(R.layout.activity_main);
@@ -85,6 +97,25 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     }
 
 
+    private void initDataBase(){
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .name("location.db")
+                .schemaVersion(0)
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
+
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        FavouriteItem favouriteItem = realm.createObject(FavouriteItem.class);
+        favouriteItem.setLocation("Lodz");
+        favouriteItem.setWoeid("505120");
+        realm.commitTransaction();
+
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -94,29 +125,32 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setMessage(getString(R.string.loading));
         loadingDialog.setCancelable(false);
-
         loadingDialog.show();
 
-        /*double lat = astroWeatherConfig.getLocation().getLatitude();
-        double lon = astroWeatherConfig.getLocation().getLongitude();
-
-        String location = String.valueOf("(" + lat + "," + lon + ")");*/
-
-        String location = preferences.getString(getString(R.string.pref_custom),"Lodz");
-
-        if (preferences.getBoolean(getString(R.string.pref_geolocation_enabled), true)) {
-            String locationCache = preferences.getString(getString(R.string.pref_cached_location), null);
-
-            if (locationCache == null) {
-                getWeatherFromCurrentLocation();
-            } else {
-                location = locationCache;
-            }
+        String location = "Lodz";
+        if(getBooleanFromSharedPreferences()) {
+            location = preferences.getString(getString(R.string.pref_custom), "Lodz");
+        }else{
+            RealmQuery query = realm.where(FavouriteItem.class);
+            RealmResults results = query.findAll();
+            FavouriteItem item = (FavouriteItem) results.get(getPostion());
+            location = item.getLocation();
         }
-
         if (location != null) {
             weatherService.refreshWeather(location);
         }
+    }
+
+    boolean getBooleanFromSharedPreferences(){
+        String check = preferences.getString("pref_is_favourite_location","0");
+        if(check.equals("0")){
+            return true;
+        }
+        return false;
+    }
+
+    int getPostion(){
+        return preferences.getInt("pref_position",0);
     }
 
     private void getWeatherFromCurrentLocation() {
@@ -222,8 +256,10 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.action_fav:
+                startActivity(new Intent(this, FavouriteActivity.class));
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -243,10 +279,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public void serviceSuccess(Channel channel) {
         loadingDialog.dismiss();
 
-        String link = channel.getItem().getLink();
-        link = link.substring(link.lastIndexOf("-")+ 1);
-        String woeid = link.substring(0, link.length()-1);
-
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
 
         for (Fragment fragment : fragmentList) {
@@ -257,7 +289,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
                 ((BasicDataFragment) fragment).loadForecast(channel);
             }
         }
-
         cacheService.save(channel);
     }
 
@@ -296,4 +327,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
     public void onProviderDisabled(String provider) {
 
     }
+
+
 }

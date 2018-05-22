@@ -28,11 +28,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private SharedPreferences preferences;
     private AstroWeatherConfig astroWeatherConfig;
 
-    private SwitchPreference geolocationEnabledPreference;
     private LongitudeEditTextPreference manualLongitudePreference;
     private LatitudeEditTextPreference manualLatitudePreference;
-
-    private LocationEditTextPreference customEditTextPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,17 +44,13 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     void findPreferencesFromXml() {
         addPreferencesFromResource(R.xml.app_preferences);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        geolocationEnabledPreference = (SwitchPreference) findPreference(getString(R.string.pref_geolocation_enabled));
         manualLongitudePreference = (LongitudeEditTextPreference) findPreference(getString(R.string.pref_manual_longitude));
         manualLatitudePreference = (LatitudeEditTextPreference) findPreference(getString(R.string.pref_manual_latitude));
-        customEditTextPreference = (LocationEditTextPreference) findPreference(getString(R.string.pref_custom));
-
     }
 
     void setupPreferences() {
         manualLatitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         manualLongitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_custom)));
         bindPreferenceSummaryToValue(manualLongitudePreference);
         bindPreferenceSummaryToValue(manualLatitudePreference);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_temperature_unit)));
@@ -131,8 +124,15 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         }
         else if(preference instanceof LocationEditTextPreference){
             preference.setSummary(stringValue);
+            setBooleanFromSharedPreferences();
         }
 
         return true;
+    }
+
+    void setBooleanFromSharedPreferences(){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("pref_is_favourite_location", "0");
+        editor.apply();
     }
 }

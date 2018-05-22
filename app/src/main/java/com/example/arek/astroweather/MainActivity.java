@@ -89,11 +89,12 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         setContentView(R.layout.activity_main);
         if (getResources().getBoolean(R.bool.isTablet)) {
             configureToolbar();
-            configureTabLayout();
-            configureViewPager();
         } else {
             configureToolbar();
+            configureTabLayout();
+            configureViewPager();
         }
+
     }
 
 
@@ -106,12 +107,13 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         Realm.setDefaultConfiguration(realmConfig);
 
         realm = Realm.getDefaultInstance();
+        /*
         realm.beginTransaction();
         realm.deleteAll();
         FavouriteItem favouriteItem = realm.createObject(FavouriteItem.class);
         favouriteItem.setLocation("Lodz");
         favouriteItem.setWoeid("505120");
-        realm.commitTransaction();
+        realm.commitTransaction();*/
 
 
     }
@@ -214,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     void configureTabLayout() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(WEATHER));
         tabLayout.addTab(tabLayout.newTab().setText(MOON));
         tabLayout.addTab(tabLayout.newTab().setText(SUN));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

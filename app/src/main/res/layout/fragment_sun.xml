@@ -24,14 +24,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/LATITUDE"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/latitude"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
             <TableRow>
@@ -41,14 +41,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/LONGITUDE"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/longitude"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
             <View
@@ -62,14 +62,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/SUNRISE"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/sunrise"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
             <TableRow>
@@ -79,14 +79,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/SUNSET"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/sunset"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </TableRow>
 
@@ -101,14 +101,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/AZIMUTH_RISE"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/azimuthrise"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
 
@@ -119,14 +119,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/AZIMUTH_SET"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/azimuthset"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
             <View
@@ -140,14 +140,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/TWILIGHT_EVENING"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/twilightevening"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
 
             <TableRow>
@@ -157,14 +157,14 @@
                     android:layout_column="1"
                     android:padding="3dip"
                     android:text="@string/TWILIGHT_MORNING"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
                     android:id="@+id/twilightmorning"
                     style="@style/TextColor"
                     android:gravity="end"
                     android:padding="3dip"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

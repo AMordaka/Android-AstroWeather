@@ -106,12 +106,12 @@ Układ fragmentów na ekranie powinien być zależny od jego orientacji i rozdzi
 • Ustawienie/zmianę lokalizacji, dla których pobierane są dane.
 • Wybór jednostek miary stosowanych w aplikacji.
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/1.PNG)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/other/1.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/2.PNG)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/other/2.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/3.PNG)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/other/3.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/4.PNG)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/other/4.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/5.PNG)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/other/5.PNG)

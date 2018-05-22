@@ -31,6 +31,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private LongitudeEditTextPreference manualLongitudePreference;
     private LatitudeEditTextPreference manualLatitudePreference;
 
+    private ListPreference refreshListPreference;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +48,14 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         manualLongitudePreference = (LongitudeEditTextPreference) findPreference(getString(R.string.pref_manual_longitude));
         manualLatitudePreference = (LatitudeEditTextPreference) findPreference(getString(R.string.pref_manual_latitude));
+        refreshListPreference = (ListPreference) findPreference(getString(R.string.pref_refreshing_time));
     }
 
     void setupPreferences() {
+        refreshListPreference.setSummary("15min");
         manualLatitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLatitude()));
         manualLongitudePreference.setText(String.valueOf(astroWeatherConfig.getLocation().getLongitude()));
+        bindPreferenceSummaryToValue(refreshListPreference);
         bindPreferenceSummaryToValue(manualLongitudePreference);
         bindPreferenceSummaryToValue(manualLatitudePreference);
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_temperature_unit)));

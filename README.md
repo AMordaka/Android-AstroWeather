@@ -108,10 +108,10 @@ Układ fragmentów na ekranie powinien być zależny od jego orientacji i rozdzi
 
 ![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/1.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/2.png)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/2.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/3.png)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/3.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/4.png)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/4.PNG)
 
-![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/5.png)
+![alt text](https://github.com/AMordaka/Android-AstroWeather/blob/master/app/src/main/res/drawable/5.PNG)

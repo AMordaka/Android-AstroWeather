@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
         preferences.edit().remove(getString(R.string.pref_manual_longitude)).apply();
         preferences.edit().remove(getString(R.string.pref_is_favourite_location)).apply();
 
-        SharedPreferences.Editor editor = preferences.edit();
+/*        SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();*/
 
         astroWeatherConfig = AstroWeatherConfig.getAstroWeatherInstance();
         super.onCreate(savedInstanceState);
@@ -118,9 +118,11 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceLis
 
     }
 
+
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         weatherService.setTemperatureUnit(preferences.getString(getString(R.string.pref_temperature_unit), "C"));
         synchAstroWeather();
 

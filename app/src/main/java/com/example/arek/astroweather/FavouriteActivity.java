@@ -1,8 +1,10 @@
 package com.example.arek.astroweather;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +32,8 @@ public class FavouriteActivity extends AppCompatActivity implements WeatherServi
     private SpinAdapter adapter;
     private EditText editText;
     private List<FavouriteItem> listFavourites = new ArrayList<>();
+
+    boolean choice;
 
     private YahooWeatherService weatherService;
 
@@ -86,27 +90,54 @@ public class FavouriteActivity extends AppCompatActivity implements WeatherServi
 
     public void saveLocation(View view) {
         Channel channel = weatherService.refreshWeather(editText.getText().toString());
-        if(channel != null){
+        if(channel != null) {
             String link = channel.getItem().getLink();
-            link = link.substring(link.lastIndexOf("-")+ 1);
-            String woeid = link.substring(0, link.length()-1);
-            FavouriteItem favouriteItem = new FavouriteItem(editText.getText().toString(), woeid);
+            link = link.substring(link.lastIndexOf("-") + 1);
+            String woeid = link.substring(0, link.length() - 1);
+            final FavouriteItem favouriteItem = new FavouriteItem(editText.getText().toString(), woeid);
+
             if(listFavourites.contains(favouriteItem)){
                 Toast.makeText(this, "This woeid is in Database", Toast.LENGTH_SHORT).show();
             }else {
 
-                realm.beginTransaction();
-                FavouriteItem itemInDb = realm.createObject(FavouriteItem.class);
-                itemInDb.setLocation(favouriteItem.getLocation());
-                itemInDb.setWoeid(favouriteItem.getWoeid());
-                realm.commitTransaction();
-                Toast.makeText(this, "Added woeid: " + favouriteItem.getWoeid(), Toast.LENGTH_SHORT).show();
-                refreshSpinAdapter();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("Alert");
+                alertDialogBuilder
+                        .setMessage("Are you sure add this localization: " + channel.getLocation())
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                realm.beginTransaction();
+                                FavouriteItem itemInDb = realm.createObject(FavouriteItem.class);
+                                itemInDb.setLocation(favouriteItem.getLocation());
+                                itemInDb.setWoeid(favouriteItem.getWoeid());
+                                realm.commitTransaction();
+                                showToastAdded(favouriteItem);
+                                refreshSpinAdapter();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                showToastCancel();
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
-        }
-        else{
-            Toast.makeText(this, "This location is Invalid", Toast.LENGTH_SHORT).show();
-        }
+        } else{
+                Toast.makeText(this, "This location is Invalid", Toast.LENGTH_SHORT).show();
+            }
+    }
+
+    void showToastAdded(FavouriteItem favouriteItem){
+        Toast.makeText(this, "Added woeid: " + favouriteItem.getWoeid(), Toast.LENGTH_SHORT).show();
+    }
+
+    void showToastCancel(){
+        Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
     }
 
 
